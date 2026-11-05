@@ -119,7 +119,7 @@ function createProductCard(produto) {
 
     
 btnDetalhes.addEventListener("click", function () {
-    window.location.href = "detalhes.html?id=" + produto.id;
+    window.location.href = "detalhe.html?id=" + produto.id;
 });
 
 

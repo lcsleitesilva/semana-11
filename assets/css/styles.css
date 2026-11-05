@@ -1,3 +1,28 @@
+/* =========================================
+   MINI ECOMMERCE - GAMER MODERNO
+   Identidade visual do projeto
+   ========================================= */
+
+:root {
+    /* Cores principais */
+    --cor-fundo: #0B0B14;
+    --cor-card: #171725;
+    --cor-roxo: #8B5CF6;
+    --cor-azul: #00D4FF;
+
+    /* Cores dos textos */
+    --cor-texto: #F5F5FF;
+    --cor-texto-secundario: #A1A1B5;
+
+    /* Bordas */
+    --cor-borda: #303047;
+}
+
+
+
+
+
+
 * {
     box-sizing: border-box;
 }
@@ -97,4 +122,14 @@ button:hover {
     .controles {
         flex-direction: column;
     }
+}
+
+/* =========================================
+   ESTILO GERAL - GAMER MODERNO
+   ========================================= */
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: Arial, sans-serif;
 }
