@@ -2,11 +2,11 @@ const data = {
     produtos: [
         {
             id: 1,
-            nome: "iPhone 15",
+            nome: "iPhone 18",
             preco: 4999.90,
             categoria: "Celulares",
-            imagem: "https://placehold.co/200x150?text=iPhone+15",
-            descricao: "Smartphone Apple iPhone 15 com 128GB.",
+            imagem: "assets/img/iphone-18.jpg",
+            descricao: "Smartphone Apple iPhone 18 com 128GB.",
             emEstoque: true
         },
         {
@@ -14,7 +14,7 @@ const data = {
             nome: "Galaxy S24",
             preco: 3999.90,
             categoria: "Celulares",
-            imagem: "https://placehold.co/200x150?text=Galaxy+S24",
+            imagem: "assets/img/samsung-galaxy-s24.jpg",
             descricao: "Smartphone Samsung Galaxy S24.",
             emEstoque: true
         },
@@ -23,25 +23,17 @@ const data = {
             nome: "Notebook Lenovo",
             preco: 2899.90,
             categoria: "Notebooks",
-            imagem: "https://placehold.co/200x150?text=Notebook+Lenovo",
+            imagem: "assets/img/notebook-lenovo.jpg",
             descricao: "Notebook Lenovo para estudos e trabalho.",
             emEstoque: true
         },
-        {
-            id: 4,
-            nome: "Notebook Acer",
-            preco: 3199.90,
-            categoria: "Notebooks",
-            imagem: "https://placehold.co/200x150?text=Notebook+Acer",
-            descricao: "Notebook Acer com ótimo desempenho.",
-            emEstoque: false
-        },
+
         {
             id: 5,
             nome: "Mouse Gamer",
             preco: 149.90,
             categoria: "Acessórios",
-            imagem: "https://placehold.co/200x150?text=Mouse+Gamer",
+            imagem: "assets/img/mouse-gamer.jpg",
             descricao: "Mouse gamer com iluminação RGB.",
             emEstoque: true
         },
@@ -50,46 +42,70 @@ const data = {
             nome: "Teclado Mecânico",
             preco: 249.90,
             categoria: "Acessórios",
-            imagem: "https://placehold.co/200x150?text=Teclado+Mecanico",
+            imagem: "assets/img/teclado-mecanico.jpg",
+
             descricao: "Teclado mecânico para jogos e trabalho.",
             emEstoque: true
         },
+
         {
             id: 7,
             nome: "Minecraft",
             preco: 99.90,
             categoria: "Games",
-            imagem: "https://placehold.co/200x150?text=Minecraft",
+            imagem: "assets/img/minecraft.png",
             descricao: "Jogo Minecraft para PC.",
-            emEstoque: true
+            emEstoque: true,
+            destaque: true
         },
+
         {
             id: 8,
-            nome: "EA Sports FC 26",
+            nome: "EA Sports FC 27",
             preco: 299.90,
             categoria: "Games",
-            imagem: "https://placehold.co/200x150?text=EA+Sports+FC+26",
-            descricao: "Jogo de futebol EA Sports FC 26.",
+            imagem: "assets/img/ea27.png",
+            descricao: "Jogo de futebol EA Sports FC 27.",
             emEstoque: false
+        },
+
+        {
+            id: 9,
+            nome: "Grand Theft Auto VI",
+            preco: null,
+            categoria: "Games",
+            imagem: "assets/img/gta6.jpg",
+            descricao: "Explore Vice City e o estado de Leonida em uma nova aventura da Rockstar Games.",
+            emEstoque: false,
+            destaque: true
         }
+
     ]
 };
 
 // Seleção dos elementos
 const productList = document.getElementById("product-list");
 const productDetails = document.getElementById("product-details");
+const listaDestaques = document.getElementById("lista-destaques");
+
 
 const searchInput = document.querySelector("#search");
 const categorySelect = document.querySelector("#category");
 const btnRender = document.querySelector("#btnRender");
 
 // Formata o preço
+
 function formatPrice(preco) {
+    if (preco === null) {
+        return "Preço a anunciar";
+    }
+
     return preco.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL"
     });
 }
+
 
 // Cria um card de produto
 function createProductCard(produto) {
@@ -117,10 +133,10 @@ function createProductCard(produto) {
     const btnDetalhes = document.createElement("button");
     btnDetalhes.innerHTML = "Ver detalhes";
 
-    
-btnDetalhes.addEventListener("click", function () {
-    window.location.href = "detalhe.html?id=" + produto.id;
-});
+
+    btnDetalhes.addEventListener("click", function () {
+        window.location.href = "detalhe.html?id=" + produto.id;
+    });
 
 
     const btnDestacar = document.createElement("button");
@@ -156,6 +172,48 @@ function renderProducts(produtos) {
         console.log("Card renderizado - data-id:", card.getAttribute("data-id"));
     });
 }
+
+/* Monta o carrossel de produtos em destaque */
+function renderDestaques() {
+    if (!listaDestaques) return;
+
+    listaDestaques.innerHTML = "";
+
+
+    const destaques = data.produtos.filter(function (produto) {
+        return produto.destaque === true;
+    });
+
+    destaques.sort(function (a, b) {
+        if (a.nome === "Grand Theft Auto VI") return -1;
+        if (b.nome === "Grand Theft Auto VI") return 1;
+        return 0;
+    });
+
+    destaques.forEach(function (produto, index) {
+        const slide = document.createElement("div");
+
+        slide.className = "carousel-item";
+
+        if (index === 0) {
+            slide.classList.add("active");
+        }
+
+        slide.innerHTML = `
+            <div class="text-center p-4">
+                <img src="${produto.imagem}"
+                     alt="${produto.nome}"
+                     class="d-block mx-auto img-fluid">
+
+                <h3>${produto.nome}</h3>
+                <p>${produto.descricao}</p>
+            </div>
+        `;
+
+        listaDestaques.appendChild(slide);
+    });
+}
+
 
 // Preenche as categorias
 function renderCategories() {
@@ -226,10 +284,11 @@ if (productList) {
 
     renderCategories();
     renderProducts(data.produtos);
+    renderDestaques();
 }
 
 
- // Página de detalhes
+// Página de detalhes
 const detalhesProduto = document.getElementById("detalhes-produto");
 
 if (detalhesProduto) {
@@ -246,6 +305,7 @@ if (detalhesProduto) {
         detalhesProduto.innerHTML = `
             <img src="${produto.imagem}" alt="${produto.nome}">
             <h3>${produto.nome}</h3>
+<p><strong>Código do produto:</strong> ${produto.id}</p>
             <p><strong>Preço:</strong> ${formatPrice(produto.preco)}</p>
             <p><strong>Categoria:</strong> ${produto.categoria}</p>
             <p><strong>Status:</strong> ${estoque}</p>

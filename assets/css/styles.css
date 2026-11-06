@@ -103,8 +103,8 @@ button:hover {
 }
 
 .highlight {
-    border: 4px solid #f5b400;
-    box-shadow: 0 0 15px #999;
+    border: 4px solid #6a00f5;
+    box-shadow: 0 0 15px var(--cor-roxo);
 }
 
 .detalhes {
@@ -133,3 +133,335 @@ body {
     color: var(--cor-texto);
     font-family: Arial, sans-serif;
 }
+
+
+
+
+/* Efeito gamer - Neon roxo intenso */
+.card:hover {
+    transform: translateY(-8px);
+    border: 3px solid #A855F7;
+
+    box-shadow:
+        0 0 10px #A855F7,
+        0 0 25px rgba(168, 85, 247, 0.9),
+        0 0 45px rgba(168, 85, 247, 0.6),
+        0 0 70px rgba(168, 85, 247, 0.3);
+
+    transition: all 0.3s ease;
+}
+
+/* CABEÇALHO GAMER */
+.cabecalho-gamer {
+    background: linear-gradient(135deg, #171725, #0B0B14);
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 3px solid #A855F7;
+    box-shadow: 0 5px 25px rgba(168, 85, 247, 0.35);
+}
+
+.logo-gamer h1 {
+    color: #A855F7;
+    font-size: 36px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px rgba(168, 85, 247, 0.7);
+    margin-bottom: 8px;
+}
+
+.logo-gamer p {
+    color: #A1A1B5;
+    font-size: 15px;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+}
+
+@media (max-width: 600px) {
+    .logo-gamer h1 {
+        font-size: 26px;
+        letter-spacing: 1px;
+    }
+}
+
+/* MENU DE NAVEGAÇÃO GAMER */
+.menu-gamer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 35px;
+    margin-top: 25px;
+}
+
+.menu-gamer a {
+    color: #F5F5FF;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.menu-gamer a:hover {
+    color: #A855F7;
+    background-color: rgba(168, 85, 247, 0.12);
+    text-shadow: 0 0 12px #A855F7;
+}
+
+/* MENU RESPONSIVO PARA CELULAR */
+@media (max-width: 600px) {
+    .menu-gamer {
+        gap: 8px;
+        margin-top: 18px;
+    }
+
+    .menu-gamer a {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+}
+
+/* ORGANIZAÇÃO DOS PRODUTOS */
+#product-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* TABLETS */
+@media (max-width: 992px) {
+    #product-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* CELULARES */
+@media (max-width: 576px) {
+    #product-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* IMAGENS DOS CARDS */
+#product-list .card img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    background-color: #10101C;
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+/* CARROSSEL GAMER */
+.secao-destaques {
+    margin: 30px auto;
+    padding: 25px;
+    background: linear-gradient(135deg, #171725, #211334);
+    border: 1px solid #8B5CF6;
+    border-radius: 18px;
+}
+
+.secao-destaques h2 {
+    color: #C084FC;
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+#carouselDestaques .carousel-item {
+    min-height: 360px;
+}
+
+#carouselDestaques .carousel-item img {
+    width: 100%;
+    max-width: 550px;
+    height: 230px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+#carouselDestaques h3 {
+    color: #F5F5FF;
+    margin-top: 15px;
+}
+
+#carouselDestaques p {
+    color: #C4B5FD;
+}
+
+@media (max-width: 576px) {
+    .secao-destaques {
+        padding: 15px;
+    }
+
+    #carouselDestaques .carousel-item img {
+        height: 180px;
+    }
+}
+
+/* VISUAL CINEMATOGRÁFICO DO CARROSSEL */
+.secao-destaques {
+    width: 100%;
+    max-width: 1400px;
+    margin: 30px auto;
+    padding: 0;
+    background: #0B0B14;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+#carouselDestaques .carousel-item img {
+    width: 100%;
+    max-width: 100%;
+    height: 550px;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+@media (max-width: 576px) {
+    #carouselDestaques .carousel-item img {
+        height: 260px;
+    }
+}
+
+/* TEXTO SOBRE A IMAGEM DO CARROSSEL */
+#carouselDestaques .carousel-item {
+    position: relative;
+}
+
+#carouselDestaques .carousel-item .text-center {
+    padding: 0 !important;
+}
+
+#carouselDestaques .carousel-item h3 {
+    position: absolute;
+    bottom: 100px;
+    left: 8%;
+    color: white;
+    font-size: 42px;
+    font-weight: bold;
+    text-align: left;
+    text-shadow: 0 3px 15px black;
+}
+
+#carouselDestaques .carousel-item p {
+    position: absolute;
+    bottom: 45px;
+    left: 8%;
+    max-width: 550px;
+    color: white;
+    font-size: 17px;
+    text-align: left;
+    text-shadow: 0 2px 10px black;
+}
+
+@media (max-width: 576px) {
+    #carouselDestaques .carousel-item h3 {
+        font-size: 24px;
+        bottom: 85px;
+    }
+
+    #carouselDestaques .carousel-item p {
+        font-size: 13px;
+        bottom: 20px;
+        max-width: 75%;
+    }
+}
+
+
+/* DEGRADÊ CINEMATOGRÁFICO DO BANNER */
+#carouselDestaques .carousel-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    height: 65%;
+
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9),
+        rgba(0, 0, 0, 0)
+    );
+
+    pointer-events: none;
+}
+
+/* MANTÉM O TEXTO NA FRENTE DO DEGRADÊ */
+#carouselDestaques .carousel-item h3,
+#carouselDestaques .carousel-item p {
+    z-index: 2;
+}
+
+/* SETAS DO CARROSSEL CINEMATOGRÁFICO */
+#carouselDestaques .carousel-control-prev,
+#carouselDestaques .carousel-control-next {
+    width: 45px;
+    height: 45px;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    background: rgba(0, 0, 0, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+#carouselDestaques .carousel-control-prev {
+    left: 20px;
+}
+
+#carouselDestaques .carousel-control-next {
+    right: 20px;
+}
+
+#carouselDestaques .carousel-control-prev:hover,
+#carouselDestaques .carousel-control-next:hover {
+    background: rgba(139, 92, 246, 0.8);
+    border-color: #A855F7;
+    box-shadow: 0 0 18px rgba(168, 85, 247, 0.6);
+}
+
+/* CARDS COM VISUAL CINEMATOGRÁFICO */
+#product-list .card {
+    background: #14141C;
+    border: 1px solid #292933;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 0;
+}
+
+#product-list .card img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+
+    background: #14141C;
+    border-radius: 0;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+#product-list .card h3 {
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 15px;
+}
+
+#product-list .card p {
+    color: #B8B8C5;
+    padding: 0 15px;
+}
+
+
+
+
