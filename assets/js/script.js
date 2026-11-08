@@ -75,6 +75,14 @@ const data = {
             preco: null,
             categoria: "Games",
             imagem: "assets/img/gta6.jpg",
+
+            galeria: [
+                {
+                    titulo: "Capa oficial do GTA VI",
+                    imagem: "assets/img/gta6.jpg"
+                }
+            ],
+
             descricao: "Explore Vice City e o estado de Leonida em uma nova aventura da Rockstar Games.",
             emEstoque: false,
             destaque: true
@@ -311,7 +319,22 @@ if (detalhesProduto) {
             <p><strong>Status:</strong> ${estoque}</p>
             <p><strong>Descrição:</strong> ${produto.descricao}</p>
         `;
-    } else {
+
+if (produto.galeria) {
+    produto.galeria.forEach(function (foto) {
+        detalhesProduto.innerHTML += `
+            <div class="foto-galeria">
+                <img src="${foto.imagem}" alt="${foto.titulo}">
+                <h4>${foto.titulo}</h4>
+            </div>
+        `;
+    });
+}
+
+
+    } 
+    
+    else {
         detalhesProduto.innerHTML = "<p>Produto não encontrado.</p>";
     }
 }

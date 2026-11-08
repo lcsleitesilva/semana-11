@@ -462,6 +462,227 @@ body {
     padding: 0 15px;
 }
 
+/* ===== PÁGINA DE DETALHES NEXUS GAMING ===== */
+#detalhes-produto {
+    max-width: 950px;
+    margin: 35px auto;
+    padding: 35px;
+    background: linear-gradient(145deg, #1c1c2d, #101019);
+    border: 1px solid #39304c;
+    border-radius: 20px;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
 
+#detalhes-produto > img {
+    display: block;
+    width: 100%;
+    max-width: 380px;
+    height: 260px;
+    object-fit: contain;
+    margin: 0 auto 25px;
+    border-radius: 14px;
+}
 
+#detalhes-produto h3 {
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+}
 
+#detalhes-produto p {
+    max-width: 650px;
+    margin: 10px auto;
+    padding: 12px 18px;
+    background: #232333;
+    border: 1px solid #333348;
+    border-radius: 10px;
+    color: #e8e8f2;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+}
+
+#detalhes-produto p strong { color: #c084fc; }
+
+#detalhes-produto .foto-galeria {
+    display: inline-block;
+    vertical-align: top;
+    width: 260px;
+    max-width: 100%;
+    margin: 20px 10px;
+    padding: 15px;
+    background: #202030;
+    border: 1px solid #423356;
+    border-radius: 14px;
+}
+
+#detalhes-produto .foto-galeria img {
+    display: block;
+    width: 100%;
+    max-width: 220px;
+    height: 150px;
+    object-fit: contain;
+    margin: 0 auto 12px;
+    border-radius: 10px;
+}
+
+#detalhes-produto .foto-galeria h4 {
+    color: #c084fc;
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+}
+
+@media (max-width: 576px) {
+    #detalhes-produto { margin: 20px auto; padding: 18px; }
+    #detalhes-produto > img { height: 210px; }
+    #detalhes-produto h3 { font-size: 24px; }
+    #detalhes-produto p { font-size: 14px; }
+    #detalhes-produto .foto-galeria { margin: 12px auto; }
+}
+
+/* BOTÃO VOLTAR PARA OS PRODUTOS */
+main > a[href="index.html"] {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 22px;
+    margin: 15px 0 25px;
+    background: #21172f;
+    color: #c084fc;
+    border: 1px solid #8b5cf6;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+main > a[href="index.html"]:hover {
+    background: #8b5cf6;
+    color: white;
+    transform: translateX(-5px);
+    box-shadow: 0 0 22px rgba(168, 85, 247, 0.5);
+}
+
+/* ANIMAÇÃO SUAVE DOS CARDS
+   AO ENTRAR E SAIR COM O MOUSE */
+#product-list .card {
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease,
+        background-color 0.35s ease;
+    will-change: transform;
+}
+
+#product-list .card:hover {
+    transform: translateY(-8px);
+    border-color: #a855f7;
+    box-shadow:
+        0 0 10px #a855f7,
+        0 0 25px rgba(168, 85, 247, 0.9),
+        0 0 45px rgba(168, 85, 247, 0.6),
+        0 0 70px rgba(168, 85, 247, 0.3);
+}
+
+/* CAIXA DE FILTROS */
+.controles {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 22px;
+    background: #171725;
+    border: 1px solid #303047;
+    border-radius: 16px;
+    margin: 30px 0;
+}
+
+/* CAMPO DE PESQUISA */
+.controles input {
+    flex: 1;
+    min-width: 0;
+    background: #0f0f1c;
+    color: white;
+    border: 1px solid #41415b;
+    border-radius: 10px;
+    padding: 14px 18px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.controles input::placeholder {
+    color: #85859e;
+}
+
+.controles input:focus {
+    border-color: #a855f7;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.35);
+}
+
+/* COMBO BOX DE CATEGORIAS */
+.controles select {
+    background: #0f0f1c;
+    color: #f5f5ff;
+    border: 1px solid #41415b;
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.controles select:focus,
+.controles select:hover {
+    border-color: #a855f7;
+    box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+}
+
+/* BOTÃO RENDERIZAR */
+.controles button {
+    background: #8b5cf6;
+    color: white;
+    border: 1px solid #a855f7;
+    border-radius: 10px;
+    padding: 14px 22px;
+    margin: 0;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.controles button:hover {
+    background: #a855f7;
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+}
+
+/* FILTROS RESPONSIVOS */
+@media (max-width: 650px) {
+    .controles {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+    }
+
+    .controles input,
+    .controles select,
+    .controles button {
+        width: 100%;
+    }
+}
+
+/* ACESSIBILIDADE: REDUZ ANIMAÇÕES
+   QUANDO SOLICITADO PELO SISTEMA */
+@media (prefers-reduced-motion: reduce) {
+    #product-list .card,
+    main > a[href="index.html"],
+    .controles input,
+    .controles select,
+    .controles button {
+        transition: none;
+    }
+}
