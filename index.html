@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mini Ecommerce</title>
+    <title>NEXUS GAMING | Seu universo gamer</title>
 
     
 <!-- Bootstrap 5.3.3 -->
@@ -23,19 +23,27 @@
 
 
 
-    <header class="cabecalho-gamer">
+    <header class="cabecalho-gamer" id="inicio">
         <div class="logo-gamer">
             <h1>⚡ NEXUS GAMING</h1>
             <p>Seu universo gamer começa aqui</p>
         </div>
 
         <nav class="menu-gamer">
-            <a href="index.html">Início</a>
+            <a href="#inicio">Início</a>
             <a href="#produtos">Produtos</a>
             <a href="#sobre">Sobre nós</a>
         </nav>
     </header>
 
+
+    <div class="pagina-com-banners">
+        <aside class="banner-lateral banner-esquerdo" aria-label="Banner lateral GTA VI — Cal Hampton">
+            <div class="banner-conteudo">
+                <img src="assets/img/Cal_Hampton_gta6.jpg" alt="Arte de Cal Hampton em GTA VI" loading="lazy">
+                
+            </div>
+        </aside>
 
     <main>
         
@@ -77,37 +85,38 @@
 
 
         <!-- Área de busca e filtros -->
-        <section class="controles">
+        <section class="controles" aria-label="Pesquisar e filtrar produtos">
+            <div class="titulo-busca"><strong>🔎 Encontre seu próximo upgrade</strong><span>Pesquise pelo nome ou selecione uma categoria.</span></div>
 
-            <input type="text" id="search" placeholder="Buscar produto...">
+            <input type="search" id="search" placeholder="Ex.: Minecraft, mouse gamer..." aria-label="Buscar produtos">
 
-            <select id="category">
+            <select id="category" aria-label="Filtrar por categoria">
                 <option value="Todas">Todas</option>
             </select>
-
-            <button id="btnRender">
-                Renderizar
-            </button>
 
         </section>
 
         <!-- Local onde os produtos serão mostrados -->
-        <section>
+        <section id="produtos">
             <h2>Produtos</h2>
 
             <div id="product-list"></div>
         </section>
 
-        <!-- Local onde aparecerão os detalhes do produto -->
-        <section class="detalhes">
-            <h2>Detalhes do produto</h2>
-
-            <div id="product-details">
-                <p>Clique em "Ver detalhes" para visualizar um produto.</p>
-            </div>
+        <section id="sobre" class="sobre-nexus" style="margin:45px 0;padding:28px;background:#171725;border:1px solid #303047;border-radius:16px;">
+            <h2>Sobre nós</h2>
+            <p>A NEXUS GAMING é um projeto acadêmico de mini ecommerce com catálogo e detalhes dinâmicos de produtos.</p>
+            <p><strong>Desenvolvido por:</strong> Lucas Leite Silva | <strong>Matrícula:</strong> 931215</p>
         </section>
-
     </main>
+
+        <aside class="banner-lateral banner-direito" aria-label="Banner lateral GTA VI — DreQuan Priest">
+            <div class="banner-conteudo">
+                <img src="assets/img/DreQuan_Priest_gta6.jpg" alt="Arte de DreQuan Priest em GTA VI" loading="lazy">
+                
+            </div>
+        </aside>
+    </div>
 
     
 <!-- JavaScript do Bootstrap -->

@@ -7,7 +7,8 @@ const data = {
             categoria: "Celulares",
             imagem: "assets/img/iphone-18.jpg",
             descricao: "Smartphone Apple iPhone 18 com 128GB.",
-            emEstoque: true
+            emEstoque: true,
+            galeria: [{ titulo: "Imagem do produto", imagem: "assets/img/iphone-18.jpg" }]
         },
         {
             id: 2,
@@ -16,7 +17,8 @@ const data = {
             categoria: "Celulares",
             imagem: "assets/img/samsung-galaxy-s24.jpg",
             descricao: "Smartphone Samsung Galaxy S24.",
-            emEstoque: true
+            emEstoque: true,
+            galeria: [{ titulo: "Vista do produto", imagem: "assets/img/samsung-galaxy-s24.jpg" }]
         },
         {
             id: 3,
@@ -25,7 +27,8 @@ const data = {
             categoria: "Notebooks",
             imagem: "assets/img/notebook-lenovo.jpg",
             descricao: "Notebook Lenovo para estudos e trabalho.",
-            emEstoque: true
+            emEstoque: true,
+            galeria: [{ titulo: "Vista do produto", imagem: "assets/img/notebook-lenovo.jpg" }]
         },
 
         {
@@ -35,7 +38,8 @@ const data = {
             categoria: "Acessórios",
             imagem: "assets/img/mouse-gamer.jpg",
             descricao: "Mouse gamer com iluminação RGB.",
-            emEstoque: true
+            emEstoque: true,
+            galeria: [{ titulo: "Vista do produto", imagem: "assets/img/mouse-gamer.jpg" }]
         },
         {
             id: 6,
@@ -45,7 +49,8 @@ const data = {
             imagem: "assets/img/teclado-mecanico.jpg",
 
             descricao: "Teclado mecânico para jogos e trabalho.",
-            emEstoque: true
+            emEstoque: true,
+            galeria: [{ titulo: "Vista do produto", imagem: "assets/img/teclado-mecanico.jpg" }]
         },
 
         {
@@ -56,7 +61,8 @@ const data = {
             imagem: "assets/img/minecraft.png",
             descricao: "Jogo Minecraft para PC.",
             emEstoque: true,
-            destaque: true
+            destaque: true,
+            galeria: [{ titulo: "Capa do Minecraft", imagem: "assets/img/minecraft.png" }]
         },
 
         {
@@ -66,7 +72,8 @@ const data = {
             categoria: "Games",
             imagem: "assets/img/ea27.png",
             descricao: "Jogo de futebol EA Sports FC 27.",
-            emEstoque: false
+            emEstoque: false,
+            galeria: [{ titulo: "Capa do EA Sports FC 27", imagem: "assets/img/ea27.png" }]
         },
 
         {
@@ -77,10 +84,9 @@ const data = {
             imagem: "assets/img/gta6.jpg",
 
             galeria: [
-                {
-                    titulo: "Capa oficial do GTA VI",
-                    imagem: "assets/img/gta6.jpg"
-                }
+                { titulo: "Arte principal do GTA VI", imagem: "assets/img/gta6.jpg" },
+                { titulo: "Vice City — paisagem", imagem: "assets/img/Vice_City_27.0d2e~w_r93hmh.jpg" },
+                { titulo: "Cartão-postal de Vice City", imagem: "assets/img/Vice_City_Postcard_landscape.jpg" }
             ],
 
             descricao: "Explore Vice City e o estado de Leonida em uma nova aventura da Rockstar Games.",
@@ -99,7 +105,7 @@ const listaDestaques = document.getElementById("lista-destaques");
 
 const searchInput = document.querySelector("#search");
 const categorySelect = document.querySelector("#category");
-const btnRender = document.querySelector("#btnRender");
+
 
 // Formata o preço
 
@@ -114,6 +120,9 @@ function formatPrice(preco) {
     });
 }
 
+
+// Destaques escolhidos pelo visitante, salvos no navegador.
+const favoritos = new Set(JSON.parse(localStorage.getItem("nexusFavoritos") || "[]"));
 
 // Cria um card de produto
 function createProductCard(produto) {
@@ -148,14 +157,34 @@ function createProductCard(produto) {
 
 
     const btnDestacar = document.createElement("button");
-    btnDestacar.innerHTML = "Destacar";
+    btnDestacar.classList.add("btn-favorito");
+    btnDestacar.setAttribute("aria-pressed", String(favoritos.has(produto.id)));
+    btnDestacar.innerHTML = favoritos.has(produto.id) ? "★ Destacado" : "☆ Destacar";
+    card.classList.toggle("favorito", favoritos.has(produto.id));
 
     btnDestacar.addEventListener("click", function () {
-        card.classList.add("highlight");
+        if (favoritos.has(produto.id)) favoritos.delete(produto.id);
+        else favoritos.add(produto.id);
+        localStorage.setItem("nexusFavoritos", JSON.stringify([...favoritos]));
+        card.classList.toggle("favorito", favoritos.has(produto.id));
+        btnDestacar.setAttribute("aria-pressed", String(favoritos.has(produto.id)));
+        btnDestacar.innerHTML = favoritos.has(produto.id) ? "★ Destacado" : "☆ Destacar";
     });
 
-    card.appendChild(imagem);
-    card.appendChild(nome);
+    // A imagem e o titulo tambem abrem a pagina de detalhes.
+    const linkImagem = document.createElement("a");
+    linkImagem.href = "detalhe.html?id=" + produto.id;
+    linkImagem.setAttribute("aria-label", "Ver detalhes de " + produto.nome);
+    linkImagem.appendChild(imagem);
+
+    const linkNome = document.createElement("a");
+    linkNome.href = "detalhe.html?id=" + produto.id;
+    linkNome.style.textDecoration = "none";
+    linkNome.style.color = "inherit";
+    linkNome.appendChild(nome);
+
+    card.appendChild(linkImagem);
+    card.appendChild(linkNome);
     card.appendChild(preco);
     card.appendChild(categoria);
     card.appendChild(btnDetalhes);
@@ -286,9 +315,6 @@ if (productList) {
         renderProducts(filterProducts());
     });
 
-    btnRender.addEventListener("click", function () {
-        renderProducts(filterProducts());
-    });
 
     renderCategories();
     renderProducts(data.produtos);
@@ -309,32 +335,55 @@ if (detalhesProduto) {
 
     if (produto) {
         const estoque = produto.emEstoque ? "Em estoque" : "Fora de estoque";
-
+        const fotos = produto.galeria && produto.galeria.length ? produto.galeria : [{ titulo: produto.nome, imagem: produto.imagem }];
         detalhesProduto.innerHTML = `
-            <img src="${produto.imagem}" alt="${produto.nome}">
-            <h3>${produto.nome}</h3>
-<p><strong>Código do produto:</strong> ${produto.id}</p>
-            <p><strong>Preço:</strong> ${formatPrice(produto.preco)}</p>
-            <p><strong>Categoria:</strong> ${produto.categoria}</p>
-            <p><strong>Status:</strong> ${estoque}</p>
-            <p><strong>Descrição:</strong> ${produto.descricao}</p>
-        `;
-
-if (produto.galeria) {
-    produto.galeria.forEach(function (foto) {
-        detalhesProduto.innerHTML += `
-            <div class="foto-galeria">
-                <img src="${foto.imagem}" alt="${foto.titulo}">
-                <h4>${foto.titulo}</h4>
+            <div class="produto-detalhe-layout">
+                <div class="galeria-lateral">
+                    <div class="galeria-miniaturas" aria-label="Fotos do produto"></div>
+                    <div class="foto-principal">
+                        <img id="foto-principal" src="${fotos[0].imagem}" alt="${fotos[0].titulo}">
+                        <p id="legenda-principal">${fotos[0].titulo}</p>
+                    </div>
+                </div>
+                <div class="informacoes-produto">
+                    <h3>${produto.nome}</h3>
+                    <p><strong>Código do produto:</strong> ${produto.id}</p>
+                    <p><strong>Preço:</strong> ${formatPrice(produto.preco)}</p>
+                    <p><strong>Categoria:</strong> ${produto.categoria}</p>
+                    <p><strong>Status:</strong> ${estoque}</p>
+                    <p><strong>Descrição:</strong> ${produto.descricao}</p>
+                </div>
             </div>
+            <h3 class="titulo-fotos">Fotos vinculadas ao produto</h3>
+            <div class="grade-fotos"></div>
         `;
-    });
-}
-
-
-    } 
-    
-    else {
+        const miniaturas = detalhesProduto.querySelector(".galeria-miniaturas");
+        const grade = detalhesProduto.querySelector(".grade-fotos");
+        const fotoPrincipal = detalhesProduto.querySelector("#foto-principal");
+        const legendaPrincipal = detalhesProduto.querySelector("#legenda-principal");
+        if (fotos.length === 1) {
+            detalhesProduto.querySelector(".galeria-lateral").classList.add("galeria-unica");
+        }
+        fotos.forEach(function (foto, indice) {
+            const miniatura = document.createElement("button");
+            miniatura.type = "button";
+            miniatura.className = "miniatura" + (indice === 0 ? " selecionada" : "");
+            miniatura.setAttribute("aria-label", "Mostrar " + foto.titulo);
+            miniatura.innerHTML = `<img src="${foto.imagem}" alt="${foto.titulo}">`;
+            miniatura.addEventListener("click", function () {
+                fotoPrincipal.src = foto.imagem;
+                fotoPrincipal.alt = foto.titulo;
+                legendaPrincipal.textContent = foto.titulo;
+                miniaturas.querySelectorAll(".miniatura").forEach(function (item) { item.classList.remove("selecionada"); });
+                miniatura.classList.add("selecionada");
+            });
+            if (fotos.length > 1) miniaturas.appendChild(miniatura);
+            const cardFoto = document.createElement("div");
+            cardFoto.className = "foto-galeria";
+            cardFoto.innerHTML = `<img src="${foto.imagem}" alt="${foto.titulo}"><h4>${foto.titulo}</h4>`;
+            grade.appendChild(cardFoto);
+        });
+    } else {
         detalhesProduto.innerHTML = "<p>Produto não encontrado.</p>";
     }
 }
